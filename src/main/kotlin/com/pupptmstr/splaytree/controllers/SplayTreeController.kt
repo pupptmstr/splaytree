@@ -13,14 +13,36 @@ class SplayTreeController: Controller() {
         splayTree.add(SplayNode(null, null, null, inputValue))
         println(splayTree.toString())
         find<SplayTreeView>().drawShapes(splayTree.toList())
-        return "Добавил"
+        return "Добавлено"
     }
 
     fun removeDataFromTree(inputValue: Int) : String {
-        return "Ну допустим удалил $inputValue из дерева"
+        splayTree.remove(SplayNode(null, null, null, inputValue))
+        println(splayTree.toString())
+        find<SplayTreeView>().drawShapes(splayTree.toList())
+        return "Удалено"
     }
 
     fun searchDataInTree(inputValue: Int) : String {
-        return "НУ вот дАпустим нашел $inputValue?!"
+        return when (splayTree.contains(SplayNode(null, null, null, inputValue))) {
+            true -> "Элемент найден"
+            false -> "Элемента нет в дереве"
+        }
+    }
+
+    fun getTree(): SplayTree {
+        return splayTree
+    }
+
+    fun clearTree() {
+        splayTree.clear()
+    }
+
+    fun isEmty(): Boolean {
+        return splayTree.isEmpty()
+    }
+
+    fun isNotEmpty(): Boolean {
+        return splayTree.isNotEmpty()
     }
 }

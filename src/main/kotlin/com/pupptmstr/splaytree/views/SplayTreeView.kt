@@ -16,6 +16,7 @@ class SplayTreeView() : View() {
     }
 
     fun drawShapes(list: List<Int>) {
+        gc.clearRect(0.0,0.0, 1400.0, 1400.0)
         gc.fill = Color.ALICEBLUE
         gc.stroke = Color.BLACK
         gc.lineWidth = 1.0

@@ -24,7 +24,11 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun clear() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        try {
+            body.clear()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun iterator(): MutableIterator<SplayNode> {
@@ -32,7 +36,7 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun contains(element: SplayNode?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return body.contains(element)
     }
 
     override fun tailSet(fromElement: SplayNode?): SortedSet<SplayNode> {
@@ -56,7 +60,13 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun remove(element: SplayNode?): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return try {
+            body.remove(element)
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     override fun retainAll(elements: Collection<SplayNode>): Boolean {
@@ -68,7 +78,7 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun isEmpty(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return body.isEmpty()
     }
 
     override fun comparator(): Comparator<in SplayNode>? {
@@ -89,6 +99,10 @@ class SplayTree() : SortedSet<SplayNode> {
             res.add(it.content)
         }
         return res
+    }
+
+    fun getBody(): List<SplayNode> {
+        return body
     }
 
 }
