@@ -1,34 +1,54 @@
 package com.pupptmstr.splaytree.model
 
-import java.lang.Exception
 import java.util.*
 
 class SplayTree() : SortedSet<SplayNode> {
     override var size = 0
+    private var root: SplayNode? = null
 
-    private val body = mutableListOf<SplayNode>()
-
+    fun add(element: Int): Boolean{
+        return add(SplayNode(element, null, null, null))
+    }
     override fun add(element: SplayNode?): Boolean {
-        return try {
-            body.add(element!!)
+        try {
+            var z: SplayNode? = root
+            var p: SplayNode? = null
+            loop@ while (z != null) {
+                p = z
+                z = when {
+                    (element!!.element > p.element) -> z.right
+                    (element.element < p.element) -> z.left
+                    else -> break@loop
+                }
+            }
+            z = SplayNode(element!!.element, null, null, p)
+            when {
+                (p == null) -> root = z
+                (element.element > p.element) -> p.right = z
+                (element.element < p.element) -> p.left = z
+            }
+            splay(z)
             size++
-            true
+            return true
         } catch (e: Exception) {
             e.printStackTrace()
-            false
+            return false
         }
     }
 
     override fun addAll(elements: Collection<SplayNode>): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        elements.forEach {
+            val answer = add(it)
+            if (!answer) {
+                return false
+            }
+        }
+        return true
     }
 
     override fun clear() {
-        try {
-            body.clear()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        root = null
+        size = 0
     }
 
     override fun iterator(): MutableIterator<SplayNode> {
@@ -36,7 +56,7 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun contains(element: SplayNode?): Boolean {
-        return body.contains(element)
+        TODO("not implemented")
     }
 
     override fun tailSet(fromElement: SplayNode?): SortedSet<SplayNode> {
@@ -60,13 +80,7 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun remove(element: SplayNode?): Boolean {
-        return try {
-            body.remove(element)
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
-        }
+        TODO("not implemented")
     }
 
     override fun retainAll(elements: Collection<SplayNode>): Boolean {
@@ -78,7 +92,7 @@ class SplayTree() : SortedSet<SplayNode> {
     }
 
     override fun isEmpty(): Boolean {
-        return body.isEmpty()
+        return root == null
     }
 
     override fun comparator(): Comparator<in SplayNode>? {
@@ -89,20 +103,41 @@ class SplayTree() : SortedSet<SplayNode> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    fun rotate(parent: SplayNode, child: SplayNode) {
+        TODO("not implemented")
+    }
+
+    private fun splay(aim: SplayNode) {
+        TODO("not implemented")
+    }
+
+    private fun zigZig() {
+        TODO("not implemented")
+    }
+
+    private fun zigZag() {
+        TODO("not implemented")
+    }
+
+    private fun zig() {
+
+    }
+
     override fun toString() : String {
-        return body.toString()
+        return "Не готово"
+        TODO("намутить перебор тела и пересование его в стрингу")
+
     }
 
     fun toList(): List<Int> {
         val res = mutableListOf<Int>()
-        body.forEach {
-            res.add(it.content)
-        }
         return res
+        TODO("сделать перебор тела")
+
     }
 
-    fun getBody(): List<SplayNode> {
-        return body
+    fun getBody(): SplayNode? {
+        return root
     }
 
 }

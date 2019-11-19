@@ -1,7 +1,9 @@
 package com.pupptmstr.splaytree.model
 
-data class SplayNode(
-    val parent: SplayNode?,
-    val left: SplayNode?,
-    val right: SplayNode?,
-    val content: Int)
+data class SplayNode
+@JvmOverloads constructor(
+    var element: Int = 0,
+    var left: SplayNode? = null,
+    var right: SplayNode? = null,
+    var parent: SplayNode? = null
+)
