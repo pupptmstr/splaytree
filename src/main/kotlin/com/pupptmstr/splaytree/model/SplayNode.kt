@@ -6,4 +6,8 @@ data class SplayNode
     var left: SplayNode? = null,
     var right: SplayNode? = null,
     var parent: SplayNode? = null
-)
+) {
+    operator fun compareTo(element: Int): Int {
+        return this.element - element
+    }
+}

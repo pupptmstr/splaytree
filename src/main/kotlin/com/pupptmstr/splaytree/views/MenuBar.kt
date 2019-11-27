@@ -5,7 +5,6 @@ import com.pupptmstr.splaytree.controllers.SplayTreeController
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import tornadofx.*
-import java.lang.Exception
 import java.util.*
 
 class MenuBar : View() {
@@ -16,8 +15,7 @@ class MenuBar : View() {
         menu("File") {
             item("Open").action {
                 val content = controller.openFile()
-                val parsedData = controller.parseData(content)
-                //TODO() вынести все проверки в контроллер
+                val parsedData = controller.parser.parseData(content)
                 if (treeController.isNotEmpty()) {
                     val alert = Alert(Alert.AlertType.CONFIRMATION)
                     alert.title = "Сохранить?"

@@ -1,30 +1,38 @@
 package com.pupptmstr.splaytree.controllers
 
-import com.pupptmstr.splaytree.model.SplayNode
 import com.pupptmstr.splaytree.model.SplayTree
 import com.pupptmstr.splaytree.views.SplayTreeView
 import tornadofx.Controller
+import java.lang.Exception
+import java.util.*
 
-class SplayTreeController: Controller() {
+class SplayTreeController : Controller() {
 
     private val splayTree = SplayTree()
 
-    fun addDataToTree(inputValue: Int) : String {
-        splayTree.add(SplayNode(null, null, null, inputValue))
-        println(splayTree.toString())
-        find<SplayTreeView>().drawShapes(splayTree.toList())
-        return "Добавлено"
+    fun addDataToTree(inputValue: Int): String {
+        val ans = splayTree.add(inputValue)
+        return if (ans) {
+            println(splayTree.toString())
+            find<SplayTreeView>().drawShapes(splayTree.toList())
+            "Добавлено"
+        } else {
+            "Такой элемент уже существует"
+        }
     }
 
-    fun removeDataFromTree(inputValue: Int) : String {
-        splayTree.remove(SplayNode(null, null, null, inputValue))
+    fun removeDataFromTree(inputValue: Int): String {
+        splayTree.remove(inputValue)
         println(splayTree.toString())
         find<SplayTreeView>().drawShapes(splayTree.toList())
         return "Удалено"
     }
 
-    fun searchDataInTree(inputValue: Int) : String {
-        return when (splayTree.contains(SplayNode(null, null, null, inputValue))) {
+    fun searchDataInTree(inputValue: Int): String {
+        val ans = splayTree.contains(inputValue)
+        println(splayTree.toString())
+        find<SplayTreeView>().drawShapes(splayTree.toList())
+        return when (ans) {
             true -> "Элемент найден"
             false -> "Элемента нет в дереве"
         }
@@ -36,10 +44,6 @@ class SplayTreeController: Controller() {
 
     fun clearTree() {
         splayTree.clear()
-    }
-
-    fun isEmty(): Boolean {
-        return splayTree.isEmpty()
     }
 
     fun isNotEmpty(): Boolean {
