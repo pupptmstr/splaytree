@@ -47,16 +47,47 @@ class SplayTreeView : View() {
             gc.strokeText(value.toString(), findPlaceX(i), findPlaceY(level) - 1.0)
             relationList.add(Pair(value, level))
         }
+        if (indexOfRoot != null) {
+            drawRelations(indexOfRoot, relationList)
+        }
+    }
+
+    private fun drawRelations(indexNow: Int, listOfElements: List<Pair<Int, Int>>) {
+        if (indexNow > 0) {
+            var leftChildIndex: Int? = null
+
+            for (i in indexNow downTo 0) {
+                if (listOfElements[i].second < listOfElements[indexNow].second)
+                    break
+                if (listOfElements[i].second == listOfElements[indexNow].second + 1)
+                    leftChildIndex = i
+            }
+            if (leftChildIndex != null) {
+                println("х и y для начала:${findPlaceX(indexNow)}; ${findPlaceY(listOfElements[indexNow].second)}")
+                println("х и y для конца:${findPlaceX(leftChildIndex)}; ${findPlaceY(listOfElements[leftChildIndex].second)}")
+                gc.strokeLine(
+                    findPlaceX(indexNow),
+                    findPlaceY(listOfElements[indexNow].second),
+                    findPlaceX(leftChildIndex),
+                    findPlaceY(listOfElements[leftChildIndex].second)
+                )
+            }
+
+
+        }
+        if (indexNow < listOfElements.size) {
+            var rightChildIndex: Int? = null
+        }
     }
 
 
     private fun findPlaceX(positionInList: Int): Double {
-        return ((70 * positionInList) + 15).toDouble()
+        return ((75 * positionInList) + 15).toDouble()
 
     }
 
     private fun findPlaceY(level: Int): Double {
-        return (level * 70 + 20).toDouble()
+        return (level * 75 + 15).toDouble()
 
     }
 

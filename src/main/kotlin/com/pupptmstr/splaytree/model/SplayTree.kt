@@ -3,7 +3,7 @@ package com.pupptmstr.splaytree.model
 import java.util.*
 
 class SplayTree : SortedSet<SplayNode> {
-
+    //TODO("сделать hashCode и equals")
     override var size = 0
     private var root: SplayNode? = null
     private val listOfHeadSets = ArrayList<SudoSet>()
@@ -161,6 +161,7 @@ class SplayTree : SortedSet<SplayNode> {
     override fun iterator(): MutableIterator<SplayNode> = Iterator()
 
     inner class Iterator internal constructor(): MutableIterator<SplayNode> {
+        //TODO("реализовать сохранение предыдущего и текущего элемента")
         private var nodes: Stack<SplayNode> = Stack()
         private lateinit var current: SplayNode
 
@@ -287,7 +288,6 @@ class SplayTree : SortedSet<SplayNode> {
             }
         }
     }
-
     override fun tailSet(fromElement: SplayNode?): SortedSet<SplayNode> {
         val tailSet = SudoSet(fromElement!!.element, null)
         listOfTailSets.add(tailSet)
