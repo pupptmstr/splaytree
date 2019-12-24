@@ -63,20 +63,38 @@ class SplayTreeView : View() {
                     leftChildIndex = i
             }
             if (leftChildIndex != null) {
-                println("х и y для начала:${findPlaceX(indexNow)}; ${findPlaceY(listOfElements[indexNow].second)}")
-                println("х и y для конца:${findPlaceX(leftChildIndex)}; ${findPlaceY(listOfElements[leftChildIndex].second)}")
+                
                 gc.strokeLine(
-                    findPlaceX(indexNow),
-                    findPlaceY(listOfElements[indexNow].second),
-                    findPlaceX(leftChildIndex),
-                    findPlaceY(listOfElements[leftChildIndex].second)
+                    findPlaceX(indexNow) - 5.0,
+                    findPlaceY(listOfElements[indexNow].second) + 5.0,
+                    findPlaceX(leftChildIndex) + 10.0,
+                    findPlaceY(listOfElements[leftChildIndex].second) - 15.0
                 )
+                drawRelations(leftChildIndex, listOfElements)
             }
 
 
         }
         if (indexNow < listOfElements.size) {
             var rightChildIndex: Int? = null
+
+            for (i in indexNow..listOfElements.lastIndex) {
+                if (listOfElements[i].second < listOfElements[indexNow].second)
+                    break
+                if (listOfElements[i].second == listOfElements[indexNow].second + 1)
+                    rightChildIndex = i
+            }
+
+            if (rightChildIndex != null) {
+                gc.strokeLine(
+                    findPlaceX(indexNow) + 50.0,
+                    findPlaceY(listOfElements[indexNow].second) + 50.0,
+                    findPlaceX(rightChildIndex) - 5.0,
+                    findPlaceY(listOfElements[rightChildIndex].second) - 5.0
+                )
+                drawRelations(rightChildIndex, listOfElements)
+            }
+
         }
     }
 

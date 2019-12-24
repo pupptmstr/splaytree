@@ -3,7 +3,6 @@ package com.pupptmstr.splaytree.model
 import java.util.*
 
 class SplayTree : SortedSet<SplayNode> {
-    //TODO("сделать hashCode и equals")
     override var size = 0
     private var root: SplayNode? = null
     private val listOfHeadSets = ArrayList<SudoSet>()
@@ -61,7 +60,10 @@ class SplayTree : SortedSet<SplayNode> {
     override fun remove(element: SplayNode?): Boolean {
         try {
             if (element == null) {
-                return true
+                throw IllegalArgumentException()
+            }
+            if (!contains(element)) {
+                throw IllegalArgumentException()
             }
 
             splay(element)
@@ -161,7 +163,6 @@ class SplayTree : SortedSet<SplayNode> {
     override fun iterator(): MutableIterator<SplayNode> = Iterator()
 
     inner class Iterator internal constructor(): MutableIterator<SplayNode> {
-        //TODO("реализовать сохранение предыдущего и текущего элемента")
         private var nodes: Stack<SplayNode> = Stack()
         private lateinit var current: SplayNode
 
@@ -311,7 +312,22 @@ class SplayTree : SortedSet<SplayNode> {
     }
 
     override fun retainAll(elements: Collection<SplayNode>): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        try {
+            val existingElements = mutableListOf<Int>()
+            elements.forEach {
+                if (contains(it.element)) {
+                    existingElements.add(it.element)
+                }
+            }
+            clear()
+            existingElements.forEach {
+                add(it)
+            }
+            return true
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            return false
+        }
     }
 
     override fun isEmpty(): Boolean {
@@ -402,5 +418,28 @@ class SplayTree : SortedSet<SplayNode> {
 
     override fun toString() : String = inorderIterator().joinToString(separator = "//")
 
-    fun toList(): List<String> = inorderIterator()/*.map { it.split("-")[0].toInt() }*/
+    fun toList(): List<String> = inorderIterator()
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SplayTree
+
+        if (size != other.size) return false
+        if (root != other.root) return false
+
+        if (!containsAll(listOf(other.root))) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = size
+        result = 31 * result + (root?.hashCode() ?: 0)
+        return result
+    }
+
+
 }

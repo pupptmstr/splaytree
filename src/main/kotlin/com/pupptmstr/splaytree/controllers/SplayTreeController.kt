@@ -22,10 +22,14 @@ class SplayTreeController : Controller() {
     }
 
     fun removeDataFromTree(inputValue: Int): String {
-        splayTree.remove(inputValue)
-        println(splayTree.toString())
-        find<SplayTreeView>().drawShapes(splayTree.toList())
-        return "Удалено"
+        val ans = splayTree.remove(inputValue)
+        return if (ans) {
+            println(splayTree.toString())
+            find<SplayTreeView>().drawShapes(splayTree.toList())
+            "Удалено"
+        } else {
+            "Удалять нечего. Такого элемента не существует."
+        }
     }
 
     fun searchDataInTree(inputValue: Int): String {
